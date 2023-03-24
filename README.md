@@ -159,3 +159,11 @@ python3.10 chunk_explorer.py ./assets/bob.png
 ('IEND', 0, '0xae426082', '0xae426082', 0)
 
 ```
+
+## Comment ?
+
+J'ai choisi de partir sur la base hexadécimal du fichier PNG pour disséquer tous les chunks et mettre en application tout ce que j'ai retenu quand j'ai mené mes recherches. (même si utiliser une librairie était possible ;-))
+
+Pour ce faire, j'extrais les principales informations (taille, type) tous sur 4 octets, ce qui me permet ensuite de récupérer les données de chaque chunk. Puis il reste le CRC (sur 4 octets). 
+
+L'entropie est calculée via la formule de Shannon.
