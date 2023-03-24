@@ -8,7 +8,7 @@ Qu'est-ce que des "chunks" ? Et comment les lister ? C'est ce que nous allons vo
 
 ## Un fichier PNG mais encore ?
 
-Un fichier PNG est une suite de blocs ou « chunks», chacun de ces chunk est composé :
+Un fichier PNG (Portable Network Graphic) est un format de fichier d’image pixellisé et une suite de blocs ou « chunks», chacun de ces chunk est composé :
 
 * d’une taille de 4 octets
 * d’un nom de 4 octets
@@ -109,7 +109,7 @@ Pour plus d’informations sur les types de chunks : http://www.libpng.org/pub/p
 
 ## Quels sont les risques et vulnérabilités ?
 
-Ces chunks sont une source de potentielles vulnérabilités sur un système, en effet si l’on prend l’exemple d’un serveur web PHP où serait stockée des images PNG, il serait fortement possible de corrompre des chunks sur des images PNG uploadés et de les utiliser ensuite.
+Les chunks des fichiers PNG sont aussi une porte d'entrée pour tout type d'attaque. En effet, certains de ces chunks permettent notamment de réaliser des injections de code malveillant. Si l’on prend l’exemple d’un serveur web PHP où serait stockée des images PNG, il serait fortement possible de corrompre des chunks sur des images PNG uploadés et de les utiliser ensuite.
 
 Exemple d’une commande PHP injectée dans le chunk **tEXt** qui est ensuite exploitée en renommant le fichier *nasa.png* en *nasa.php*, puis uploadée sur le serveur.
 
@@ -124,9 +124,11 @@ Exemple d’une commande PHP injectée dans le chunk **tEXt** qui est ensuite ex
 
 Les méthodes de compressions d’images permettraient de réduire certaines attaques puisqu’elles détruisent les chunk auxiliaires et donc déduisent un pourcentage de risques. Cependant, certains chunks critiques peuvent aussi être corrompus tel que le bloc IDAT.  
 
-Une méthode assez complexe mais efficace pour injecter des charges utiles PHP persistantes dans des fichiers PNG consiste à les encoder en morceaux PNG IDAT . Ces morceaux contiennent les données d'image réelles, c'est-à-dire les pixels du PNG, représentés par 3 octets pour les canaux de couleur RVB. Lors de la création des blocs IDAT, les pixels longs de 3 octets sont d'abord traités par les filtres de ligne PNG, puis compressés à l'aide de l'algorithme DEFLATE.  
+En utilisant des méthodes assez complexe, il est très bien possible d'utiliser le principe de traitement et de compression des blocs IDAT. En effet, en trouvant une combinaison précise de pixels bruts, qui une fois traitée par les filtres et compressée par l'algorithme DEFLATE, peut générée une charge utile.
 
-Pour produire un morceau IDAT contenant du code PHP valide, il faut donc trouver la combinaison précise de pixels bruts qui, une fois traités par les filtres de ligne PNG et l'algorithme DEFLATE, génèrent la charge utile souhaitée. Une telle combinaison variera en fonction de la taille à laquelle l'image PNG est redimensionnée.  
+Ce chunk IDAT (très volumineux) peut aussi être source de DoS (Denial of Service) si le système ne gère pas correctement la lecture de ce bloc.  
+
+Pour finir, évidemment les vulnérabilités "0-Day" avec des vulnérabilités non-documentée et non-répertoriée.
 
 <br>
 
