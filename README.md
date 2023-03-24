@@ -94,7 +94,7 @@ Pour qu’une image PNG soit valide elle doit au minimum contenir ces 3 chunks :
 • **IDAT** : Contient les données compressées relatives au contenu de l’image, il se présente sous la forme de données compressées avec ZLIB.  
 • **IEND** : Ce chunk indique la fin du fichier PNG.  
 
-Il existe bien d’autres chunks allant de la palette de couleurs au commentaire internationaux, en voici quelques-un :  
+Il existe bien d’autres chunks allant de la palette de couleurs aux commentaires internationaux, en voici quelques-un :  
 
 • bKGD : Pour background color, ce chunk permet de définir une couleur d’arrière-plan au cas où des parties soient transparentes  
 • gAMA : définit le gamma de l’image  
@@ -109,7 +109,7 @@ Pour plus d’informations sur les types de chunks : http://www.libpng.org/pub/p
 
 ## Quels sont les risques et vulnérabilités ?
 
-Les chunks des fichiers PNG sont aussi une porte d'entrée pour tout type d'attaque. En effet, certains de ces chunks permettent notamment de réaliser des injections de code malveillant. Si l’on prend l’exemple d’un serveur web PHP où serait stockée des images PNG, il serait fortement possible de corrompre des chunks sur des images PNG uploadés et de les utiliser ensuite.
+Les chunks des fichiers PNG sont aussi une porte d'entrée pour tout type d'attaque. En effet, certains de ces chunks permettent notamment de réaliser des injections de code malveillant. Si l’on prend l’exemple d’un serveur web PHP où serait stocké des images PNG, il serait fortement possible de corrompre des chunks sur des images PNG uploadées et de les utiliser ensuite.
 
 Exemple d’une commande PHP injectée dans le chunk **tEXt** qui est ensuite exploitée en renommant le fichier *nasa.png* en *nasa.php*, puis uploadée sur le serveur.
 
@@ -128,7 +128,7 @@ En utilisant des méthodes assez complexe, il est très bien possible d'utiliser
 
 Ce chunk IDAT (très volumineux) peut aussi être source de DoS (Denial of Service) si le système ne gère pas correctement la lecture de ce bloc.  
 
-Pour finir, évidemment les vulnérabilités "0-Day" avec des vulnérabilités non-documentée et non-répertoriée.
+Pour finir, évidemment les vulnérabilités "0-Day" avec des vulnérabilités non-documentées et non-répertoriées.
 
 <br>
 
